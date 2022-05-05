@@ -45,6 +45,8 @@ Databáze je vytvořena na jazyce MySQL a využívá veškeré technologické vl
 
 \item phpMyAdmin - GNU General Public License 2
 
+\item pgModeler -  GNU GENERAL PUBLIC LICENSE Version 3
+
 \end{itemize}
 
 \subsection{Hardware}
@@ -59,6 +61,8 @@ Databáze je vytvořena na jazyce MySQL a využívá veškeré technologické vl
 
 \item phpMyAdmin - Tvorba databáze
 
+\item pgModeler - ER Diagram
+
 \end{itemize}
 \newpage
 \section{Enumerizace hodnot}
@@ -67,15 +71,65 @@ Databáze je vytvořena na jazyce MySQL a využívá veškeré technologické vl
 \newpage
 \section{Databázová struktura}
 \subsection{ER diagram}
-\subsection{Tabulka XXX}
+\includegraphics[trim = 110 0 10 0, width = 16cm]{Databáze_řidičů.jpg}
+\subsection{Tabulka Driving license}
 \subsubsection{Struktura}
+\begin{itemize}
+\item first name = Křestní jméno
+\item last name = Příjmení
+\item birth date = Datum narození
+\item birth place = Místo narození
+\item date of publication = Datum vydání
+\item expiration date = Datum platnosti
+\item name of the issuing authority = Název vydávajícího úřadu
+\item PK - birth number = Rodné číslo
+\item group = Skupiny
+\end{itemize}
 \subsubsection{Provázání tabulky}
-\subsection{Tabulka XXX}
+\begin{itemize}
+\item Driving license je propojeno vztahem 1:N s Vehicle
+\item Driving license je propojeno vztahem 1:N s Traffic violations
+\end{itemize}
+\subsection{Tabulka Vehicle}
 \subsubsection{Struktura}
+\begin{itemize}
+\item PK - license plate = SPZ
+\item brand = Značka
+\item vehicle type = Typ vozidla
+\item vehicle identification number = VIN kód
+\item MOT validity = Platnost STK
+\end{itemize}
 \subsubsection{Provázání tabulky}
-\subsection{Tabulka XXX}
+\begin{itemize}
+\item Vehicle je propojeno vztahem N:1 s Driving license
+\item Vehicle je propojeno vztahem 1:N s Traffic accidents
+\end{itemize}
+\subsection{Tabulka Traffic violations}
 \subsubsection{Struktura}
+\begin{itemize}
+\item violation type = Typ porušení předpisů
+\item cash penalty = Pokuta
+\item point penalty = Bodový postih
+\item date = Datum nehody
+\item PK - violation id = ID nehody
+\end{itemize}
 \subsubsection{Provázání tabulky}
+\begin{itemize}
+\item Traffic violations je propojeno vztahem N:1 s Driving license
+\end{itemize}
+\subsection{Tabulka Traffic accidents}
+\subsubsection{Struktura}
+\begin{itemize}
+\item accident type = Typ nehody
+\item accident place = Místo nehody
+\item accident date = Datum nehody
+\item damage = Škoda
+\item PK - accident id = ID nehody
+\end{itemize}
+\subsubsection{Provázání tabulky}
+\begin{itemize}
+\item Traffic accidents je propojeno vztahem N:1 s Vehicle
+\end{itemize}
 
 
 \end{document}
