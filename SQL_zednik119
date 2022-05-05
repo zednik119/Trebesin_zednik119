@@ -1,0 +1,147 @@
+-- phpMyAdmin SQL Dump
+-- version 5.0.1
+-- https://www.phpmyadmin.net/
+--
+-- Počítač: sql5.webzdarma.cz:3306
+-- Vytvořeno: Čtv 07. dub 2022, 08:57
+-- Verze serveru: 8.0.26-17
+-- Verze PHP: 7.4.27
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Databáze: `zednik119chy2115`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabulky `Driving_license`
+--
+
+CREATE TABLE `Driving_license` (
+  `first_name` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `last_name` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `birth_date` date NOT NULL,
+  `birth_place` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
+  `date_of_publication` date NOT NULL,
+  `expiration_date` date NOT NULL,
+  `name_of_the_issuing_authority` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+  `birth_number` varchar(12) COLLATE utf8_unicode_ci NOT NULL,
+  `group` varchar(50) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci;
+
+--
+-- Klíče pro exportované tabulky
+--
+
+--
+-- Klíče pro tabulku `Driving_license`
+--
+ALTER TABLE `Driving_license`
+  ADD PRIMARY KEY (`birth_number`);
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabulky `Vehicle`
+--
+
+CREATE TABLE `Vehicle` (
+  `licence_plate` varchar(8) COLLATE utf8_unicode_ci NOT NULL,
+  `brand` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+  `vehicle_type` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
+  `vehicle_idetification_number` varchar(17) COLLATE utf8_unicode_ci NOT NULL,
+  `MOT_validity` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
+  `birth_number` varchar(12) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT 'Rodné číslo majitele vozu pomocí které je spojena s tabulkou Driving_license.'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci;
+
+--
+-- Klíče pro exportované tabulky
+--
+
+--
+-- Klíče pro tabulku `Vehicle`
+--
+ALTER TABLE `Vehicle`
+  ADD PRIMARY KEY (`licence_plate`);
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabulky `Traffic_accidents`
+--
+
+CREATE TABLE `Traffic_accidents` (
+  `accidents_type` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
+  `accident_place` varchar(40) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `accident_date` date NOT NULL,
+  `damage` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
+  `accident_id` int NOT NULL,
+  `licence_plate` varchar(8) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT 'SPZ vozu pomocí které je spojena s tabulkou Vehicle.'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci;
+
+--
+-- Klíče pro exportované tabulky
+--
+
+--
+-- Klíče pro tabulku `Traffic_accidents`
+--
+ALTER TABLE `Traffic_accidents`
+  ADD PRIMARY KEY (`accident_id`);
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabulky `Traffic_violations`
+--
+
+CREATE TABLE `Traffic_violations` (
+  `violation_type` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
+  `cash_penalty` int NOT NULL,
+  `point_penalty` smallint NOT NULL,
+  `date` date NOT NULL,
+  `violation_id` int NOT NULL,
+  `birth_number` varchar(12) COLLATE utf8_unicode_ci NOT NULL COMMENT 'Rodné číslo řidiče pomocí které je spojena s tabulkou Driving_license.'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci;
+
+--
+-- Klíče pro exportované tabulky
+--
+
+--
+-- Klíče pro tabulku `Traffic_violations`
+--
+ALTER TABLE `Traffic_violations`
+  ADD PRIMARY KEY (`violation_id`);
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
